@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>ลงทะเบียน iTrack</title>
+  <title>ลงทะเบียนการใช้บริการ NGR Billing Bot (N'Money)</title>
 
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
@@ -121,7 +121,7 @@
 
 <body>
   <div class="card">
-    <h1>ลงทะเบียนใช้งาน iTrack</h1>
+    <h1>ลงทะเบียนการใช้บริการ NGR Billing Bot (N'Money)</h1>
     <div class="subtitle">กรุณากรอกข้อมูลและยืนยัน Privacy Notice</div>
 
     <div class="profile">
@@ -134,31 +134,49 @@
 
     <form id="registerForm">
       <label>ชื่อ - นามสกุล</label>
-      <input id="fullName" required placeholder="เช่น สมชาย ใจดี" />
+      <input id="fullName" required placeholder="สุขใจ สบายดี" />
 
       <label>บริษัท / หน่วยงาน</label>
-      <input id="company" required placeholder="เช่น PTT" />
+      <input id="company" required placeholder="บริษัท สวัสดี ทวีโชค จำกัด" />
+
+      <label>รหัสลูกค้า (Shipto)</label>
+      <input id="shipto" required placeholder="300xxxxx" />
 
       <label>เบอร์โทรศัพท์</label>
-      <input id="phone" required placeholder="เช่น 0812345678" />
+      <input id="phone" required placeholder="เช่น 08xxxxxxxx" />
 
       <label>อีเมล</label>
-      <input id="email" type="email" placeholder="example@email.com" />
+      <input id="email" type="email" placeholder="example@email.com กรุณาใช้ Email ที่ติดต่อกับ PTTNGR" />
 
-      <label>ภูมิภาค</label>
+      <label>เขตปฏิบัติการ</label>
       <select id="region" required>
-        <option value="">-- เลือกภูมิภาค --</option>
+        <option value="">-- เลือกเขตปฏิบัติการ --</option>
         <option value="Region 1">Region 1</option>
         <option value="Region 2">Region 2</option>
         <option value="Region 3">Region 3</option>
-        <option value="Region 4">Region 4</option>
+        <option value="Region 5">Region 5</option>
+        <option value="Region 6">Region 6</option>
+        <option value="Region 7">Region 7</option>
+        <option value="Region 9">Region 9</option>
+        <option value="Region 10">Region 10</option>
+        <option value="Region 11">Region 11</option>
+        <option value="Region 12">Region 12</option>
       </select>
 
       <div class="privacy-box">
         <strong>Privacy Notice</strong><br><br>
-        ระบบ iTrack จะเก็บรวบรวมข้อมูลส่วนบุคคล ได้แก่ ชื่อ เบอร์โทรศัพท์ อีเมล บริษัท หน่วยงาน LINE User ID และข้อมูลที่เกี่ยวข้องกับการติดตามเอกสารหรือรายงาน เพื่อใช้ในการยืนยันตัวตน การให้บริการ การแจ้งเตือน และการติดต่อกลับเท่านั้น<br><br>
-        ข้อมูลของท่านจะถูกจัดเก็บอย่างเหมาะสม และจะไม่เปิดเผยต่อบุคคลภายนอก เว้นแต่จำเป็นต่อการให้บริการ หรือเป็นไปตามกฎหมายที่เกี่ยวข้อง
+        สายงานตลาดค้าปลีกและวิศวกรรมก๊าซธรรมชาติ บริษัท ปตท. จำกัด (มหาชน) (PTT NGR) พัฒนา ระบบ Linebot เพื่อวัตถุประสงค์ในการพัฒนาสินค้าและบริการเพื่อตอบสนองความต้องการของลูกค้า  การประสานงาน การดำเนินกิจกรรมทางการตลาด การสื่อสารประชาสัมพันธ์ การบริหารงานลูกค้าสัมพันธ์ และการนำเสนอผลิตภัณฑ์และบริการของ ปตท.<br><br>
+นโยบายการคุ้มครองข้อมูลส่วนบุคคล
+ปตท. มีการจัดเก็บข้อมูลส่วนบุคคลของผู้ตอบแบบสอบถามที่ชอบด้วยกฎหมายและเป็นธรรม โดยจัดเก็บข้อมูลเท่าที่จำเป็น ในการใช้เป็นฐานข้อมูลตามอำนาจหน้าที่ตามที่กฎหมายกำหนดเท่านั้น ซึ่งต้องแจ้งให้ผู้ตอบแบบสอบถามทราบและขอความยินยอมก่อนเก็บรวบรวมข้อมูลบุคคล เช่น ชื่อ-นามสกุล หมายเลขโทรศัพท์ อีเมล โดย ปตท. จะรักษาข้อมูลเหล่านั้นไว้เป็นความลับ
+
+นอกจากนี้ ภายในกิจกรรม ปตท. จะมีการบันทึกภาพนิ่งและภาพเคลื่อนไหว เพื่อใช้ในการประชาสัมพันธ์หรือเผยแพร่ข้อมูลข่าวสารเกี่ยวกับกิจกรรม โดยดำเนินการภายใต้ฐานความจำเป็นเพื่อประโยชน์โดยชอบด้วยกฎหมาย (Legitimate Interests) ของ ปตท. ท่านสามารถสอบถามรายละเอียดเพิ่มเติม หรือใช้สิทธิตามกฎหมายคุ้มครองข้อมูลส่วนบุคคลของท่านได้ผ่านช่องทางที่ระบุในแบบแจ้งข้อมูลส่วนบุคคลฉบับเต็ม
+
+ท่านสามารถอ่าน แบบแจ้งเกี่ยวกับข้อมูลส่วนบุคคล (Privacy Notice) ฉบับเต็มสำหรับลูกค้า คู่ค้า ผู้มีความสัมพันธ์ทางธุรกิจ และผู้ปฏิบัติงานในกลุ่ม ปตท. ได้ที่ https://pttpdpa.pttplc.com/Privacy/106107
       </div>
+
+
+
+
 
       <div class="checkbox-row">
         <input type="checkbox" id="acceptPrivacy" />
@@ -172,8 +190,8 @@
   </div>
 
   <script>
-    const LIFF_ID = "ใส่_LIFF_ID_ของคุณ";
-    const API_URL = "ใส่_URL_Power_Automate_HTTP_TRIGGER";
+    const LIFF_ID = "2007689729-vy3r3gM0";
+    const API_URL = "https://defaultf2fda5e72ea1450d9fc12af5f86300.95.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/b773f13fa7ce48ffbe601aec775c039e/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=dRCw-obdwoAzTUQWAY41pnNvfl5jie8kGotNsbGGU-c";
 
     let lineProfile = null;
 
@@ -222,6 +240,7 @@
         pictureUrl: lineProfile.pictureUrl,
         fullName: document.getElementById("fullName").value,
         company: document.getElementById("company").value,
+        shipto: document.getElementById("shipto").value,
         phone: document.getElementById("phone").value,
         email: document.getElementById("email").value,
         region: document.getElementById("region").value,
@@ -249,7 +268,7 @@
         await liff.sendMessages([
           {
             type: "text",
-            text: "ลงทะเบียน iTrack สำเร็จ"
+            text: "ลงทะเบียน NGR Billing Bot สำเร็จ"
           }
         ]);
 
