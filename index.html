@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>ลงทะเบียน iTrack</title>
+
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      margin: 0;
+      padding: 20px;
+      color: #1f2937;
+    }
+
+    .card {
+      max-width: 480px;
+      margin: auto;
+      background: white;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 14px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+
+    .privacy-box {
+      margin-top: 18px;
+      padding: 14px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+      max-height: 160px;
+      overflow-y: auto;
+    }
+
+    .checkbox-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    .checkbox-row input {
+      width: auto;
+      margin-top: 3px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      background: #06c755;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    button:disabled {
+      background: #9ca3af;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      background: #f9fafb;
+      padding: 12px;
+      border-radius: 12px;
+    }
+
+    .profile img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+    }
+
+    .msg {
+      margin-top: 14px;
+      font-size: 14px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>ลงทะเบียนใช้งาน iTrack</h1>
+    <div class="subtitle">กรุณากรอกข้อมูลและยืนยัน Privacy Notice</div>
+
+    <div class="profile">
+      <img id="picture" src="" alt="profile" />
+      <div>
+        <div id="displayName">กำลังโหลดข้อมูล LINE...</div>
+        <small id="userIdText"></small>
+      </div>
+    </div>
+
+    <form id="registerForm">
+      <label>ชื่อ - นามสกุล</label>
+      <input id="fullName" required placeholder="เช่น สมชาย ใจดี" />
+
+      <label>บริษัท / หน่วยงาน</label>
+      <input id="company" required placeholder="เช่น PTT" />
+
+      <label>เบอร์โทรศัพท์</label>
+      <input id="phone" required placeholder="เช่น 0812345678" />
+
+      <label>อีเมล</label>
+      <input id="email" type="email" placeholder="example@email.com" />
+
+      <label>ภูมิภาค</label>
+      <select id="region" required>
+        <option value="">-- เลือกภูมิภาค --</option>
+        <option value="Region 1">Region 1</option>
+        <option value="Region 2">Region 2</option>
+        <option value="Region 3">Region 3</option>
+        <option value="Region 4">Region 4</option>
+      </select>
+
+      <div class="privacy-box">
+        <strong>Privacy Notice</strong><br><br>
+        ระบบ iTrack จะเก็บรวบรวมข้อมูลส่วนบุคคล ได้แก่ ชื่อ เบอร์โทรศัพท์ อีเมล บริษัท หน่วยงาน LINE User ID และข้อมูลที่เกี่ยวข้องกับการติดตามเอกสารหรือรายงาน เพื่อใช้ในการยืนยันตัวตน การให้บริการ การแจ้งเตือน และการติดต่อกลับเท่านั้น<br><br>
+        ข้อมูลของท่านจะถูกจัดเก็บอย่างเหมาะสม และจะไม่เปิดเผยต่อบุคคลภายนอก เว้นแต่จำเป็นต่อการให้บริการ หรือเป็นไปตามกฎหมายที่เกี่ยวข้อง
+      </div>
+
+      <div class="checkbox-row">
+        <input type="checkbox" id="acceptPrivacy" />
+        <span>ข้าพเจ้าได้อ่านและยอมรับ Privacy Notice แล้ว</span>
+      </div>
+
+      <button id="submitBtn" type="submit" disabled>ยืนยันลงทะเบียน</button>
+
+      <div class="msg" id="message"></div>
+    </form>
+  </div>
+
+  <script>
+    const LIFF_ID = "ใส่_LIFF_ID_ของคุณ";
+    const API_URL = "ใส่_URL_Power_Automate_HTTP_TRIGGER";
+
+    let lineProfile = null;
+
+    async function initLiff() {
+      try {
+        await liff.init({ liffId: LIFF_ID });
+
+        if (!liff.isLoggedIn()) {
+          liff.login();
+          return;
+        }
+
+        lineProfile = await liff.getProfile();
+
+        document.getElementById("displayName").innerText = lineProfile.displayName;
+        document.getElementById("picture").src = lineProfile.pictureUrl || "";
+        document.getElementById("userIdText").innerText = lineProfile.userId;
+
+      } catch (error) {
+        document.getElementById("message").innerText =
+          "ไม่สามารถเชื่อมต่อ LIFF ได้: " + error.message;
+      }
+    }
+
+    document.getElementById("acceptPrivacy").addEventListener("change", function () {
+      document.getElementById("submitBtn").disabled = !this.checked;
+    });
+
+    document.getElementById("registerForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      if (!document.getElementById("acceptPrivacy").checked) {
+        alert("กรุณายอมรับ Privacy Notice ก่อนลงทะเบียน");
+        return;
+      }
+
+      const submitBtn = document.getElementById("submitBtn");
+      const message = document.getElementById("message");
+
+      submitBtn.disabled = true;
+      message.innerText = "กำลังลงทะเบียน...";
+
+      const payload = {
+        lineUserId: lineProfile.userId,
+        lineDisplayName: lineProfile.displayName,
+        pictureUrl: lineProfile.pictureUrl,
+        fullName: document.getElementById("fullName").value,
+        company: document.getElementById("company").value,
+        phone: document.getElementById("phone").value,
+        email: document.getElementById("email").value,
+        region: document.getElementById("region").value,
+        privacyAccepted: true,
+        privacyAcceptedAt: new Date().toISOString(),
+        idToken: liff.getIDToken(),
+        accessToken: liff.getAccessToken()
+      };
+
+      try {
+        const res = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          throw new Error("API Error");
+        }
+
+        message.innerText = "ลงทะเบียนสำเร็จ";
+
+        await liff.sendMessages([
+          {
+            type: "text",
+            text: "ลงทะเบียน iTrack สำเร็จ"
+          }
+        ]);
+
+        liff.closeWindow();
+
+      } catch (error) {
+        message.innerText = "เกิดข้อผิดพลาด กรุณาลองใหม่";
+        submitBtn.disabled = false;
+      }
+    });
+
+    initLiff();
+  </script>
+</body>
+</html>
