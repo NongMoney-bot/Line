@@ -142,6 +142,21 @@
       box-shadow: 0 0 0 4px rgba(6, 199, 85, 0.13);
     }
 
+
+    .field-error {
+      display: none;
+      margin-top: 6px;
+      color: #dc2626;
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 600;
+    }
+
+    input.invalid, select.invalid {
+      border-color: #dc2626;
+      box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.10);
+    }
+
     .privacy-box {
       margin-top: 22px;
       padding: 16px;
@@ -261,33 +276,24 @@
     <form id="registerForm">
       <label for="fullName">ชื่อ - นามสกุล</label>
       <input id="fullName" required placeholder="สุขใจ สบายดี" autocomplete="name" />
+      <div id="fullNameError" class="field-error"></div>
 
       <label for="company">บริษัท / หน่วยงาน</label>
       <input id="company" required placeholder="บริษัท สวัสดี ทวีโชค จำกัด" />
+      <div id="companyError" class="field-error"></div>
 
       <label for="shipto">รหัสลูกค้า (Shipto)</label>
-      <input id="shipto" required placeholder="300xxxxx" inputmode="numeric" />
+      <input id="shipto" required placeholder="300xxxxx" inputmode="numeric" maxlength="10" />
+      <div id="shiptoError" class="field-error"></div>
 
       <label for="phone">เบอร์โทรศัพท์</label>
-      <input id="phone" required placeholder="เช่น 08xxxxxxxx" inputmode="tel" autocomplete="tel" />
+      <input id="phone" required placeholder="เช่น 08xxxxxxxx" inputmode="tel" autocomplete="tel" maxlength="10" />
+      <div id="phoneError" class="field-error"></div>
 
       <label for="email">อีเมล</label>
-      <input id="email" type="email" placeholder="กรุณาระบุ Email ที่ติดต่อกับ PTTNGR" autocomplete="email" />
+      <input id="email" type="email" required placeholder="กรุณาระบุ Email ที่ติดต่อกับ PTTNGR" autocomplete="email" />
+      <div id="emailError" class="field-error"></div>
 
-      <label for="region">เขตปฏิบัติการ</label>
-      <select id="region" required>
-        <option value="">-- เลือกเขตปฏิบัติการ --</option>
-        <option value="Region 1">Region 1</option>
-        <option value="Region 2">Region 2</option>
-        <option value="Region 3">Region 3</option>
-        <option value="Region 5">Region 5</option>
-        <option value="Region 6">Region 6</option>
-        <option value="Region 7">Region 7</option>
-        <option value="Region 9">Region 9</option>
-        <option value="Region 10">Region 10</option>
-        <option value="Region 11">Region 11</option>
-        <option value="Region 12">Region 12</option>
-      </select>
 
       <div class="privacy-box">
         <strong>Privacy Notice</strong><br><br>
@@ -331,6 +337,81 @@
       submitBtn.disabled = !(acceptPrivacy.checked && liffReady);
     }
 
+    function getValue(id) {
+      return document.getElementById(id).value.trim();
+    }
+
+    function setFieldError(id, text) {
+      const field = document.getElementById(id);
+      const error = document.getElementById(id + "Error");
+
+      if (!field || !error) return;
+
+      field.classList.toggle("invalid", Boolean(text));
+      error.innerText = text || "";
+      error.style.display = text ? "block" : "none";
+    }
+
+    function clearFieldErrors() {
+      ["fullName", "company", "shipto", "phone", "email"].forEach(function (id) {
+        setFieldError(id, "");
+      });
+    }
+
+    function validateForm() {
+      clearFieldErrors();
+
+      const fullName = getValue("fullName");
+      const company = getValue("company");
+      const shipto = getValue("shipto");
+      const phone = getValue("phone");
+      const email = getValue("email");
+
+      let firstInvalidId = "";
+
+      function markInvalid(id, text) {
+        setFieldError(id, text);
+        if (!firstInvalidId) firstInvalidId = id;
+      }
+
+      if (!fullName) {
+        markInvalid("fullName", "กรุณาระบุชื่อ - นามสกุล");
+      }
+
+      if (!company) {
+        markInvalid("company", "กรุณาระบุบริษัท / หน่วยงาน");
+      }
+
+      if (!shipto) {
+        markInvalid("shipto", "กรุณาระบุรหัสลูกค้า Shipto");
+      } else if (!/^300\d+$/.test(shipto)) {
+        markInvalid("shipto", "Shipto ต้องขึ้นต้นด้วย 300 และเป็นตัวเลขเท่านั้น");
+      }
+
+      if (!phone) {
+        markInvalid("phone", "กรุณาระบุเบอร์โทรศัพท์");
+      } else if (!/^0\d{9}$/.test(phone)) {
+        markInvalid("phone", "เบอร์โทรศัพท์ต้องเป็นตัวเลข 10 หลัก และขึ้นต้นด้วย 0");
+      }
+
+      if (!email) {
+        markInvalid("email", "กรุณาระบุอีเมล");
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        markInvalid("email", "กรุณาระบุรูปแบบอีเมลให้ถูกต้อง เช่น name@example.com");
+      }
+
+
+      if (firstInvalidId) {
+        document.getElementById(firstInvalidId).focus();
+        setMessage("กรุณาตรวจสอบข้อมูลที่กรอก", true);
+        return null;
+      }
+
+      setMessage("");
+
+      return { fullName, company, shipto, phone, email };
+    }
+
     async function initLiff() {
       try {
         await liff.init({ liffId: LIFF_ID });
@@ -370,6 +451,11 @@
         return;
       }
 
+      const formValues = validateForm();
+      if (!formValues) {
+        return;
+      }
+
       submitBtn.disabled = true;
       setMessage("กำลังลงทะเบียน...");
 
@@ -378,12 +464,11 @@
         lineDisplayName: lineProfile.displayName,
         pictureUrl: lineProfile.pictureUrl || "",
 
-        fullName: document.getElementById("fullName").value.trim(),
-        company: document.getElementById("company").value.trim(),
-        shipto: document.getElementById("shipto").value.trim(),
-        phone: document.getElementById("phone").value.trim(),
-        email: document.getElementById("email").value.trim(),
-        region: document.getElementById("region").value,
+        fullName: formValues.fullName,
+        company: formValues.company,
+        shipto: formValues.shipto,
+        phone: formValues.phone,
+        email: formValues.email,
 
         privacyAccepted: true,
         privacyAcceptedAt: new Date().toISOString(),
@@ -426,6 +511,19 @@
         setMessage("เกิดข้อผิดพลาด กรุณาลองใหม่", true);
         updateSubmitState();
       }
+    });
+
+    ["fullName", "company", "shipto", "phone", "email"].forEach(function (id) {
+      const field = document.getElementById(id);
+      if (!field) return;
+
+      field.addEventListener("input", function () {
+        setFieldError(id, "");
+      });
+
+      field.addEventListener("change", function () {
+        setFieldError(id, "");
+      });
     });
 
     initLiff();
