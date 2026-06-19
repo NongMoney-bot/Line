@@ -121,39 +121,24 @@
       font-size: 15px;
     }
 
-    input, select {
+    input,
+    select {
       width: 100%;
-      height: 52px;
-      padding: 0 16px;
+      padding: 15px 16px;
       border: 1px solid var(--nmoney-border);
       border-radius: 15px;
       font-size: 16px;
       background: #ffffff;
       color: var(--nmoney-text);
       transition: border-color 0.15s ease, box-shadow 0.15s ease;
-      display: block;
-    }
-
-    select {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background-image:
-        linear-gradient(45deg, transparent 50%, #374151 50%),
-        linear-gradient(135deg, #374151 50%, transparent 50%);
-      background-position:
-        calc(100% - 21px) 22px,
-        calc(100% - 15px) 22px;
-      background-size: 6px 6px, 6px 6px;
-      background-repeat: no-repeat;
-      padding-right: 44px;
     }
 
     input::placeholder {
       color: #8b95a1;
     }
 
-    input:focus, select:focus {
+    input:focus,
+    select:focus {
       outline: none;
       border-color: var(--nmoney-green);
       box-shadow: 0 0 0 4px rgba(6, 199, 85, 0.13);
@@ -168,7 +153,8 @@
       font-weight: 600;
     }
 
-    input.invalid, select.invalid {
+    input.invalid,
+    select.invalid {
       border-color: #dc2626;
       box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.10);
     }
@@ -216,7 +202,7 @@
       line-height: 1.55;
     }
 
-    .checkbox-row input, select {
+    .checkbox-row input {
       width: auto;
       transform: scale(1.15);
       margin-top: 4px;
@@ -297,6 +283,31 @@
     font-weight:800;
     margin-bottom:4px;
 }
+
+
+    #subscriptionPlan {
+      width: 100%;
+      height: 56px;
+      box-sizing: border-box;
+      display: block;
+
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+
+      background-image:
+        linear-gradient(45deg, transparent 50%, #6b7280 50%),
+        linear-gradient(135deg, #6b7280 50%, transparent 50%);
+
+      background-position:
+        calc(100% - 22px) calc(50% - 2px),
+        calc(100% - 16px) calc(50% - 2px);
+
+      background-size: 6px 6px;
+      background-repeat: no-repeat;
+
+      padding-right: 40px;
+    }
 
 </style>
 </head>
