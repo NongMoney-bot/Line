@@ -16,7 +16,7 @@
       --nmoney-text: #243042;
       --nmoney-muted: #6b7280;
       --nmoney-border: #d6dbe3;
-      --nmoney-soft: #f6fff9;
+      --nmoney-soft: #f8fafc;
       --nmoney-bg: #eefaf3;
     }
 
@@ -121,7 +121,7 @@
       font-size: 15px;
     }
 
-    input, select {
+    input {
       width: 100%;
       padding: 15px 16px;
       border: 1px solid var(--nmoney-border);
@@ -136,12 +136,11 @@
       color: #8b95a1;
     }
 
-    input:focus, select:focus {
+    input:focus {
       outline: none;
       border-color: var(--nmoney-green);
       box-shadow: 0 0 0 4px rgba(6, 199, 85, 0.13);
     }
-
 
     .field-error {
       display: none;
@@ -152,7 +151,7 @@
       font-weight: 600;
     }
 
-    input.invalid, select.invalid {
+    input.invalid {
       border-color: #dc2626;
       box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.10);
     }
@@ -161,11 +160,11 @@
       margin-top: 22px;
       padding: 16px;
       background: var(--nmoney-soft);
-      border: 1px solid #c9f5dc;
+      border: 1px solid #dbeafe;
       border-radius: 18px;
-      font-size: 13.5px;
+      font-size: 13px;
       line-height: 1.7;
-      max-height: 190px;
+      max-height: 280px;
       overflow-y: auto;
       color: #374151;
     }
@@ -173,6 +172,15 @@
     .privacy-box strong {
       color: var(--nmoney-navy);
       font-size: 15px;
+    }
+
+    .privacy-box ul {
+      padding-left: 20px;
+      margin: 8px 0 14px;
+    }
+
+    .privacy-box li {
+      margin-bottom: 4px;
     }
 
     .privacy-box a {
@@ -253,7 +261,27 @@
         font-size: 25px;
       }
     }
-  </style>
+  
+.header{
+    text-align:center;
+    margin-bottom:20px;
+}
+.header-logo{
+    width:140px;
+    height:140px;
+    object-fit:contain;
+    border-radius:24px;
+    margin-bottom:12px;
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+}
+.bot-name{
+    color:#06c755;
+    font-size:24px;
+    font-weight:800;
+    margin-bottom:4px;
+}
+
+</style>
 </head>
 
 <body>
@@ -266,10 +294,16 @@
       </div>
     </div>
 
-    <h1>ลงทะเบียนใช้บริการ<br>NGR Billing Bot</h1>
+    
+<div class="header">
+    <img src="N.Money.png" alt="N'Money" class="header-logo">
+    <div class="bot-name">N'Money</div>
+    <h1>NGR Billing Bot</h1>
     <div class="subtitle">
-      กรุณากรอกข้อมูลสำหรับยืนยันสิทธิ์การใช้งาน และยอมรับ Privacy Notice
+        ระบบสมัครใช้งานและบริหารจัดการสิทธิ์ผู้ใช้งาน
     </div>
+</div>
+
 
     <div class="notice-chip">✓ ระบบจะเก็บข้อมูล LINE ไว้เบื้องหลังเพื่อยืนยันตัวตน</div>
 
@@ -278,30 +312,102 @@
       <input id="fullName" required placeholder="สุขใจ สบายดี" autocomplete="name" />
       <div id="fullNameError" class="field-error"></div>
 
-      <label for="company">บริษัท</label>
+      <label for="company">บริษัท / หน่วยงาน</label>
       <input id="company" required placeholder="บริษัท สวัสดี ทวีโชค จำกัด" />
       <div id="companyError" class="field-error"></div>
 
       <label for="shipto">รหัสลูกค้า (Shipto)</label>
-      <input id="shipto" required placeholder="300xxxxx" inputmode="numeric" maxlength="8" />
+      <input id="shipto" required placeholder="300xxxxx" inputmode="numeric" maxlength="10" />
       <div id="shiptoError" class="field-error"></div>
 
       <label for="phone">เบอร์โทรศัพท์</label>
-      <input id="phone" required placeholder="08xxxxxxxx" inputmode="tel" autocomplete="tel" maxlength="10" />
+      <input id="phone" required placeholder="เช่น 08xxxxxxxx" inputmode="tel" autocomplete="tel" maxlength="10" />
       <div id="phoneError" class="field-error"></div>
 
       <label for="email">อีเมล</label>
       <input id="email" type="email" required placeholder="กรุณาระบุ Email ที่ติดต่อกับ PTTNGR" autocomplete="email" />
       <div id="emailError" class="field-error"></div>
 
-
       <div class="privacy-box">
-        <strong>Privacy Notice</strong><br><br>
-        สายงานตลาดค้าปลีกและวิศวกรรมก๊าซธรรมชาติ บริษัท ปตท. จำกัด (มหาชน) (PTT NGR) พัฒนาระบบ Linebot เพื่อวัตถุประสงค์ในการพัฒนาสินค้าและบริการเพื่อตอบสนองความต้องการของลูกค้า การประสานงาน การดำเนินกิจกรรมทางการตลาด การสื่อสารประชาสัมพันธ์ การบริหารงานลูกค้าสัมพันธ์ และการนำเสนอผลิตภัณฑ์และบริการของ ปตท.<br><br>
-        นโยบายการคุ้มครองข้อมูลส่วนบุคคล ปตท. มีการจัดเก็บข้อมูลส่วนบุคคลของผู้ตอบแบบสอบถามที่ชอบด้วยกฎหมายและเป็นธรรม โดยจัดเก็บข้อมูลเท่าที่จำเป็น ในการใช้เป็นฐานข้อมูลตามอำนาจหน้าที่ตามที่กฎหมายกำหนดเท่านั้น ซึ่งต้องแจ้งให้ผู้ตอบแบบสอบถามทราบและขอความยินยอมก่อนเก็บรวบรวมข้อมูลบุคคล เช่น ชื่อ-นามสกุล หมายเลขโทรศัพท์ อีเมล โดย ปตท. จะรักษาข้อมูลเหล่านั้นไว้เป็นความลับ<br><br>
-        นอกจากนี้ ภายในกิจกรรม ปตท. อาจมีการบันทึกภาพนิ่งและภาพเคลื่อนไหว เพื่อใช้ในการประชาสัมพันธ์หรือเผยแพร่ข้อมูลข่าวสารเกี่ยวกับกิจกรรม โดยดำเนินการภายใต้ฐานความจำเป็นเพื่อประโยชน์โดยชอบด้วยกฎหมาย (Legitimate Interests) ของ ปตท.<br><br>
-        อ่าน Privacy Notice ฉบับเต็ม:
-        <a href="https://pttpdpa.pttplc.com/Privacy/106107" target="_blank" rel="noopener">https://pttpdpa.pttplc.com/Privacy/106107</a>
+        <strong>ประกาศความเป็นส่วนตัว (Privacy Notice)</strong><br>
+        สำหรับการสมัครใช้งาน NGR Billing Bot ผ่าน LINE LIFF
+        <br><br>
+
+        สายงานตลาดค้าปลีกและวิศวกรรมก๊าซธรรมชาติ บริษัท ปตท. จำกัด (มหาชน) ("บริษัท") ให้ความสำคัญกับการคุ้มครองข้อมูลส่วนบุคคลของท่าน และขอแจ้งรายละเอียดเกี่ยวกับการเก็บรวบรวม ใช้ และเปิดเผยข้อมูลส่วนบุคคลของท่าน ดังนี้
+        <br><br>
+
+        <strong>1. ข้อมูลส่วนบุคคลที่เก็บรวบรวม</strong><br>
+        เมื่อท่านสมัครใช้บริการ NGR Billing Bot ผ่าน LINE LIFF บริษัทอาจเก็บรวบรวมข้อมูลดังต่อไปนี้
+        <ul>
+          <li>ชื่อ-นามสกุล</li>
+          <li>LINE User ID</li>
+          <li>Display Name จากบัญชี LINE</li>
+          <li>เบอร์โทรศัพท์</li>
+          <li>อีเมล</li>
+          <li>ชื่อบริษัท/หน่วยงาน (ถ้ามี)</li>
+          <li>ข้อมูลแพ็กเกจที่สมัคร</li>
+          <li>ประวัติการสมัครและการใช้งานบริการ</li>
+          <li>ข้อมูลการชำระเงินหรือเอกสารที่เกี่ยวข้องกับการสมัครใช้บริการ</li>
+        </ul>
+
+        <strong>2. วัตถุประสงค์ในการประมวลผลข้อมูล</strong><br>
+        บริษัทจะใช้ข้อมูลส่วนบุคคลของท่านเพื่อ
+        <ul>
+          <li>สมัครและจัดการสิทธิการใช้งาน Subscription Package</li>
+          <li>ยืนยันตัวตนและเชื่อมโยงบัญชีผู้ใช้งานกับระบบ NGR Billing Bot</li>
+          <li>ติดต่อประสานงาน แจ้งเตือน และให้บริการหลังการขาย</li>
+          <li>จัดทำใบแจ้งหนี้ ใบเสร็จรับเงิน และเอกสารทางธุรกิจที่เกี่ยวข้อง</li>
+          <li>ปรับปรุง พัฒนา และเพิ่มประสิทธิภาพการให้บริการ</li>
+          <li>ปฏิบัติตามกฎหมายหรือข้อกำหนดที่เกี่ยวข้อง</li>
+        </ul>
+
+        <strong>3. ฐานกฎหมายในการประมวลผลข้อมูล</strong><br>
+        บริษัทประมวลผลข้อมูลส่วนบุคคลของท่านตามฐานกฎหมายดังต่อไปนี้
+        <ul>
+          <li>เพื่อการปฏิบัติตามสัญญา (Contract)</li>
+          <li>เพื่อประโยชน์โดยชอบด้วยกฎหมายของบริษัท (Legitimate Interests)</li>
+          <li>เพื่อปฏิบัติตามกฎหมาย (Legal Obligation)</li>
+          <li>ความยินยอมของท่าน (Consent) ในกรณีที่กฎหมายกำหนด</li>
+        </ul>
+
+        <strong>4. การเปิดเผยข้อมูล</strong><br>
+        บริษัทอาจเปิดเผยข้อมูลส่วนบุคคลของท่านแก่
+        <ul>
+          <li>ผู้ให้บริการระบบเทคโนโลยีสารสนเทศ</li>
+          <li>ผู้ให้บริการชำระเงิน</li>
+          <li>ผู้ให้บริการ Cloud Infrastructure</li>
+          <li>หน่วยงานภาครัฐหรือหน่วยงานที่มีอำนาจตามกฎหมาย</li>
+        </ul>
+        โดยบริษัทจะดำเนินการเท่าที่จำเป็นและมีมาตรการคุ้มครองข้อมูลที่เหมาะสม
+        <br><br>
+
+        <strong>5. ระยะเวลาการเก็บรักษาข้อมูล</strong><br>
+        บริษัทจะเก็บรักษาข้อมูลส่วนบุคคลของท่านตลอดระยะเวลาที่ท่านใช้บริการ และหลังสิ้นสุดการใช้บริการตามระยะเวลาที่กฎหมายกำหนด หรือเท่าที่จำเป็นสำหรับวัตถุประสงค์ที่ระบุไว้
+        <br><br>
+
+        <strong>6. สิทธิของเจ้าของข้อมูล</strong><br>
+        ท่านมีสิทธิตามกฎหมาย PDPA ได้แก่
+        <ul>
+          <li>สิทธิขอเข้าถึงข้อมูล</li>
+          <li>สิทธิขอแก้ไขข้อมูล</li>
+          <li>สิทธิขอลบข้อมูล</li>
+          <li>สิทธิขอจำกัดการประมวลผล</li>
+          <li>สิทธิคัดค้านการประมวลผล</li>
+          <li>สิทธิถอนความยินยอม (กรณีอาศัยฐานความยินยอม)</li>
+        </ul>
+
+        <strong>7. ช่องทางติดต่อ</strong><br>
+        หากท่านมีข้อสงสัยเกี่ยวกับการคุ้มครองข้อมูลส่วนบุคคล สามารถติดต่อ
+        <br><br>
+        เจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล บริษัท ปตท. จำกัด (มหาชน)<br>
+        อีเมล: pttdpo@pttplc.com<br>
+        โทรศัพท์: 02-537-2300
+        <br><br>
+
+        ข้อมูลส่วนบุคคลที่ท่านให้ไว้ผ่าน LINE LIFF จะถูกเก็บรวบรวม ใช้ และเปิดเผยเพื่อการสมัครใช้งาน การบริหารจัดการบัญชีผู้ใช้ การให้บริการ NGR Billing Bot การติดต่อสื่อสาร และการดำเนินการอื่นที่เกี่ยวข้องกับการให้บริการ ทั้งนี้ ท่านสามารถศึกษารายละเอียดเกี่ยวกับการประมวลผลข้อมูลส่วนบุคคล รวมถึงสิทธิของท่านตามกฎหมายคุ้มครองข้อมูลส่วนบุคคล ได้ที่ Privacy Notice ฉบับเต็ม
+        <br><br>
+
+        <a href="https://pttpdpa.pttplc.com/Privacy/106107" target="_blank" rel="noopener">อ่าน Privacy Notice ฉบับเต็ม</a>
       </div>
 
       <div class="checkbox-row">
@@ -379,7 +485,7 @@
       }
 
       if (!company) {
-        markInvalid("company", "กรุณาระบุบริษัท");
+        markInvalid("company", "กรุณาระบุบริษัท / หน่วยงาน");
       }
 
       if (!shipto) {
@@ -400,7 +506,6 @@
         markInvalid("email", "กรุณาระบุรูปแบบอีเมลให้ถูกต้อง เช่น name@example.com");
       }
 
-
       if (firstInvalidId) {
         document.getElementById(firstInvalidId).focus();
         setMessage("กรุณาตรวจสอบข้อมูลที่กรอก", true);
@@ -408,7 +513,6 @@
       }
 
       setMessage("");
-
       return { fullName, company, shipto, phone, email };
     }
 
@@ -463,13 +567,11 @@
         lineUserId: lineProfile.userId,
         lineDisplayName: lineProfile.displayName,
         pictureUrl: lineProfile.pictureUrl || "",
-
         fullName: formValues.fullName,
         company: formValues.company,
         shipto: formValues.shipto,
         phone: formValues.phone,
         email: formValues.email,
-
         privacyAccepted: true,
         privacyAcceptedAt: new Date().toISOString(),
         idToken: liff.getIDToken(),
@@ -518,10 +620,6 @@
       if (!field) return;
 
       field.addEventListener("input", function () {
-        setFieldError(id, "");
-      });
-
-      field.addEventListener("change", function () {
         setFieldError(id, "");
       });
     });
