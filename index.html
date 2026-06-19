@@ -9,146 +9,272 @@
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
   <style>
+    :root {
+      --nmoney-green: #06c755;
+      --nmoney-green-dark: #00a86b;
+      --nmoney-navy: #172033;
+      --nmoney-text: #243042;
+      --nmoney-muted: #6b7280;
+      --nmoney-border: #d6dbe3;
+      --nmoney-soft: #f6fff9;
+      --nmoney-bg: #eefaf3;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
+      font-family: Arial, "Noto Sans Thai", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(6, 199, 85, 0.18), transparent 34%),
+        linear-gradient(180deg, #e9fff2 0%, #f4f7fb 48%, #ffffff 100%);
       margin: 0;
-      padding: 20px;
-      color: #1f2937;
+      padding: 18px;
+      color: var(--nmoney-text);
     }
 
     .card {
-      max-width: 480px;
-      margin: auto;
-      background: white;
-      border-radius: 18px;
-      padding: 22px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      max-width: 520px;
+      margin: 22px auto;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 26px;
+      padding: 26px 22px 24px;
+      box-shadow: 0 14px 36px rgba(0, 120, 80, 0.15);
+      border: 1px solid #e5f8ee;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .logo-badge {
+      width: 62px;
+      height: 62px;
+      min-width: 62px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--nmoney-green), var(--nmoney-green-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 30px;
+      font-weight: 900;
+      box-shadow: 0 10px 22px rgba(6, 199, 85, 0.28);
+    }
+
+    .brand-text {
+      line-height: 1.25;
+    }
+
+    .brand-name {
+      color: var(--nmoney-green-dark);
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.2px;
+    }
+
+    .brand-desc {
+      color: var(--nmoney-muted);
+      font-size: 13px;
+      margin-top: 2px;
     }
 
     h1 {
-      font-size: 24px;
-      margin-bottom: 8px;
+      font-size: 28px;
+      line-height: 1.28;
+      margin: 0 0 10px;
+      color: var(--nmoney-navy);
+      letter-spacing: -0.2px;
     }
 
     .subtitle {
-      color: #6b7280;
-      font-size: 14px;
-      margin-bottom: 20px;
+      color: var(--nmoney-muted);
+      font-size: 15px;
+      line-height: 1.55;
+      margin-bottom: 22px;
+    }
+
+    .notice-chip {
+      background: #ecfff3;
+      color: #047857;
+      border: 1px solid #c9f5dc;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
     }
 
     label {
       display: block;
-      margin-top: 14px;
-      font-weight: bold;
-      font-size: 14px;
+      margin-top: 16px;
+      margin-bottom: 7px;
+      font-weight: 800;
+      color: var(--nmoney-navy);
+      font-size: 15px;
     }
 
     input, select {
       width: 100%;
-      padding: 12px;
-      margin-top: 6px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      font-size: 15px;
-      box-sizing: border-box;
+      padding: 15px 16px;
+      border: 1px solid var(--nmoney-border);
+      border-radius: 15px;
+      font-size: 16px;
+      background: #ffffff;
+      color: var(--nmoney-text);
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    input::placeholder {
+      color: #8b95a1;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--nmoney-green);
+      box-shadow: 0 0 0 4px rgba(6, 199, 85, 0.13);
     }
 
     .privacy-box {
-      margin-top: 18px;
-      padding: 14px;
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      font-size: 13px;
-      line-height: 1.5;
-      max-height: 160px;
+      margin-top: 22px;
+      padding: 16px;
+      background: var(--nmoney-soft);
+      border: 1px solid #c9f5dc;
+      border-radius: 18px;
+      font-size: 13.5px;
+      line-height: 1.7;
+      max-height: 190px;
       overflow-y: auto;
+      color: #374151;
+    }
+
+    .privacy-box strong {
+      color: var(--nmoney-navy);
+      font-size: 15px;
+    }
+
+    .privacy-box a {
+      color: #047857;
+      font-weight: 700;
+      word-break: break-all;
     }
 
     .checkbox-row {
       display: flex;
-      gap: 10px;
+      gap: 11px;
       align-items: flex-start;
-      margin-top: 14px;
+      margin-top: 17px;
       font-size: 14px;
+      color: #374151;
+      line-height: 1.55;
     }
 
     .checkbox-row input {
       width: auto;
-      margin-top: 3px;
+      transform: scale(1.15);
+      margin-top: 4px;
+      accent-color: var(--nmoney-green);
     }
 
     button {
       width: 100%;
-      margin-top: 20px;
-      padding: 14px;
+      margin-top: 22px;
+      padding: 16px;
       border: none;
-      border-radius: 12px;
-      background: #06c755;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
+      border-radius: 17px;
+      background: linear-gradient(135deg, var(--nmoney-green), var(--nmoney-green-dark));
+      color: #ffffff;
+      font-size: 17px;
+      font-weight: 900;
+      box-shadow: 0 9px 22px rgba(6, 199, 85, 0.30);
+      cursor: pointer;
     }
 
     button:disabled {
-      background: #9ca3af;
-    }
-
-    .profile {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-      background: #f9fafb;
-      padding: 12px;
-      border-radius: 12px;
-    }
-
-    .profile img {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
+      background: #a8b0ba;
+      box-shadow: none;
+      cursor: not-allowed;
     }
 
     .msg {
-      margin-top: 14px;
+      margin-top: 15px;
+      min-height: 22px;
       font-size: 14px;
       text-align: center;
+      color: #0f766e;
+      font-weight: 700;
+    }
+
+    .msg.error {
+      color: #dc2626;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      text-align: center;
+      color: #7b8491;
+      font-size: 12px;
+    }
+
+    @media (max-width: 420px) {
+      body {
+        padding: 12px;
+      }
+
+      .card {
+        margin: 14px auto;
+        padding: 24px 18px 22px;
+        border-radius: 24px;
+      }
+
+      h1 {
+        font-size: 25px;
+      }
     }
   </style>
 </head>
 
 <body>
   <div class="card">
-    <h1>ลงทะเบียนการใช้บริการ NGR Billing Bot (N'Money)</h1>
-    <div class="subtitle">กรุณากรอกข้อมูลและยืนยัน Privacy Notice</div>
-
-    <div class="profile">
-      <img id="picture" src="" alt="profile" />
-      <div>
-        <div id="displayName">กำลังโหลดข้อมูล LINE...</div>
-        <small id="userIdText"></small>
+    <div class="brand-row">
+      <div class="logo-badge">N</div>
+      <div class="brand-text">
+        <div class="brand-name">N'Money</div>
+        <div class="brand-desc">NGR Billing Bot Registration</div>
       </div>
     </div>
 
-    <form id="registerForm">
-      <label>ชื่อ - นามสกุล</label>
-      <input id="fullName" required placeholder="สุขใจ สบายดี" />
+    <h1>ลงทะเบียนใช้บริการ<br>NGR Billing Bot</h1>
+    <div class="subtitle">
+      กรุณากรอกข้อมูลสำหรับยืนยันสิทธิ์การใช้งาน และยอมรับ Privacy Notice
+    </div>
 
-      <label>บริษัท / หน่วยงาน</label>
+    <div class="notice-chip">✓ ระบบจะเก็บข้อมูล LINE ไว้เบื้องหลังเพื่อยืนยันตัวตน</div>
+
+    <form id="registerForm">
+      <label for="fullName">ชื่อ - นามสกุล</label>
+      <input id="fullName" required placeholder="สุขใจ สบายดี" autocomplete="name" />
+
+      <label for="company">บริษัท / หน่วยงาน</label>
       <input id="company" required placeholder="บริษัท สวัสดี ทวีโชค จำกัด" />
 
-      <label>รหัสลูกค้า (Shipto)</label>
-      <input id="shipto" required placeholder="300xxxxx" />
+      <label for="shipto">รหัสลูกค้า (Shipto)</label>
+      <input id="shipto" required placeholder="300xxxxx" inputmode="numeric" />
 
-      <label>เบอร์โทรศัพท์</label>
-      <input id="phone" required placeholder="เช่น 08xxxxxxxx" />
+      <label for="phone">เบอร์โทรศัพท์</label>
+      <input id="phone" required placeholder="เช่น 08xxxxxxxx" inputmode="tel" autocomplete="tel" />
 
-      <label>อีเมล</label>
-      <input id="email" type="email" placeholder="กรุณาระบุ Email ที่ติดต่อกับ PTTNGR" />
+      <label for="email">อีเมล</label>
+      <input id="email" type="email" placeholder="กรุณาระบุ Email ที่ติดต่อกับ PTTNGR" autocomplete="email" />
 
-      <label>เขตปฏิบัติการ</label>
+      <label for="region">เขตปฏิบัติการ</label>
       <select id="region" required>
         <option value="">-- เลือกเขตปฏิบัติการ --</option>
         <option value="Region 1">Region 1</option>
@@ -165,18 +291,12 @@
 
       <div class="privacy-box">
         <strong>Privacy Notice</strong><br><br>
-        สายงานตลาดค้าปลีกและวิศวกรรมก๊าซธรรมชาติ บริษัท ปตท. จำกัด (มหาชน) (PTT NGR) พัฒนา ระบบ Linebot เพื่อวัตถุประสงค์ในการพัฒนาสินค้าและบริการเพื่อตอบสนองความต้องการของลูกค้า  การประสานงาน การดำเนินกิจกรรมทางการตลาด การสื่อสารประชาสัมพันธ์ การบริหารงานลูกค้าสัมพันธ์ และการนำเสนอผลิตภัณฑ์และบริการของ ปตท.<br><br>
-นโยบายการคุ้มครองข้อมูลส่วนบุคคล
-ปตท. มีการจัดเก็บข้อมูลส่วนบุคคลของผู้ตอบแบบสอบถามที่ชอบด้วยกฎหมายและเป็นธรรม โดยจัดเก็บข้อมูลเท่าที่จำเป็น ในการใช้เป็นฐานข้อมูลตามอำนาจหน้าที่ตามที่กฎหมายกำหนดเท่านั้น ซึ่งต้องแจ้งให้ผู้ตอบแบบสอบถามทราบและขอความยินยอมก่อนเก็บรวบรวมข้อมูลบุคคล เช่น ชื่อ-นามสกุล หมายเลขโทรศัพท์ อีเมล โดย ปตท. จะรักษาข้อมูลเหล่านั้นไว้เป็นความลับ
-
-นอกจากนี้ ภายในกิจกรรม ปตท. จะมีการบันทึกภาพนิ่งและภาพเคลื่อนไหว เพื่อใช้ในการประชาสัมพันธ์หรือเผยแพร่ข้อมูลข่าวสารเกี่ยวกับกิจกรรม โดยดำเนินการภายใต้ฐานความจำเป็นเพื่อประโยชน์โดยชอบด้วยกฎหมาย (Legitimate Interests) ของ ปตท. ท่านสามารถสอบถามรายละเอียดเพิ่มเติม หรือใช้สิทธิตามกฎหมายคุ้มครองข้อมูลส่วนบุคคลของท่านได้ผ่านช่องทางที่ระบุในแบบแจ้งข้อมูลส่วนบุคคลฉบับเต็ม
-
-ท่านสามารถอ่าน แบบแจ้งเกี่ยวกับข้อมูลส่วนบุคคล (Privacy Notice) ฉบับเต็มสำหรับลูกค้า คู่ค้า ผู้มีความสัมพันธ์ทางธุรกิจ และผู้ปฏิบัติงานในกลุ่ม ปตท. ได้ที่ https://pttpdpa.pttplc.com/Privacy/106107
+        สายงานตลาดค้าปลีกและวิศวกรรมก๊าซธรรมชาติ บริษัท ปตท. จำกัด (มหาชน) (PTT NGR) พัฒนาระบบ Linebot เพื่อวัตถุประสงค์ในการพัฒนาสินค้าและบริการเพื่อตอบสนองความต้องการของลูกค้า การประสานงาน การดำเนินกิจกรรมทางการตลาด การสื่อสารประชาสัมพันธ์ การบริหารงานลูกค้าสัมพันธ์ และการนำเสนอผลิตภัณฑ์และบริการของ ปตท.<br><br>
+        นโยบายการคุ้มครองข้อมูลส่วนบุคคล ปตท. มีการจัดเก็บข้อมูลส่วนบุคคลของผู้ตอบแบบสอบถามที่ชอบด้วยกฎหมายและเป็นธรรม โดยจัดเก็บข้อมูลเท่าที่จำเป็น ในการใช้เป็นฐานข้อมูลตามอำนาจหน้าที่ตามที่กฎหมายกำหนดเท่านั้น ซึ่งต้องแจ้งให้ผู้ตอบแบบสอบถามทราบและขอความยินยอมก่อนเก็บรวบรวมข้อมูลบุคคล เช่น ชื่อ-นามสกุล หมายเลขโทรศัพท์ อีเมล โดย ปตท. จะรักษาข้อมูลเหล่านั้นไว้เป็นความลับ<br><br>
+        นอกจากนี้ ภายในกิจกรรม ปตท. อาจมีการบันทึกภาพนิ่งและภาพเคลื่อนไหว เพื่อใช้ในการประชาสัมพันธ์หรือเผยแพร่ข้อมูลข่าวสารเกี่ยวกับกิจกรรม โดยดำเนินการภายใต้ฐานความจำเป็นเพื่อประโยชน์โดยชอบด้วยกฎหมาย (Legitimate Interests) ของ ปตท.<br><br>
+        อ่าน Privacy Notice ฉบับเต็ม:
+        <a href="https://pttpdpa.pttplc.com/Privacy/106107" target="_blank" rel="noopener">https://pttpdpa.pttplc.com/Privacy/106107</a>
       </div>
-
-
-
-
 
       <div class="checkbox-row">
         <input type="checkbox" id="acceptPrivacy" />
@@ -185,8 +305,10 @@
 
       <button id="submitBtn" type="submit" disabled>ยืนยันลงทะเบียน</button>
 
-      <div class="msg" id="message"></div>
+      <div class="msg" id="message">กำลังเชื่อมต่อ LINE...</div>
     </form>
+
+    <div class="footer-note">Powered by N'Money</div>
   </div>
 
   <script>
@@ -194,6 +316,20 @@
     const API_URL = "https://defaultf2fda5e72ea1450d9fc12af5f86300.95.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/b773f13fa7ce48ffbe601aec775c039e/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=dRCw-obdwoAzTUQWAY41pnNvfl5jie8kGotNsbGGU-c";
 
     let lineProfile = null;
+    let liffReady = false;
+
+    const acceptPrivacy = document.getElementById("acceptPrivacy");
+    const submitBtn = document.getElementById("submitBtn");
+    const message = document.getElementById("message");
+
+    function setMessage(text, isError = false) {
+      message.innerText = text;
+      message.classList.toggle("error", isError);
+    }
+
+    function updateSubmitState() {
+      submitBtn.disabled = !(acceptPrivacy.checked && liffReady);
+    }
 
     async function initLiff() {
       try {
@@ -206,44 +342,49 @@
 
         lineProfile = await liff.getProfile();
 
-        document.getElementById("displayName").innerText = lineProfile.displayName;
-        document.getElementById("picture").src = lineProfile.pictureUrl || "";
-        document.getElementById("userIdText").innerText = lineProfile.userId;
+        // ไม่แสดง Profile, Display Name, User ID บนแบบฟอร์ม
+        // แต่ยังเก็บค่าไว้ส่งเข้า Power Automate ใน payload
+        liffReady = true;
+        setMessage("");
+        updateSubmitState();
 
       } catch (error) {
-        document.getElementById("message").innerText =
-          "ไม่สามารถเชื่อมต่อ LIFF ได้: " + error.message;
+        liffReady = false;
+        updateSubmitState();
+        setMessage("ไม่สามารถเชื่อมต่อ LIFF ได้: " + error.message, true);
       }
     }
 
-    document.getElementById("acceptPrivacy").addEventListener("change", function () {
-      document.getElementById("submitBtn").disabled = !this.checked;
-    });
+    acceptPrivacy.addEventListener("change", updateSubmitState);
 
     document.getElementById("registerForm").addEventListener("submit", async function (e) {
       e.preventDefault();
 
-      if (!document.getElementById("acceptPrivacy").checked) {
+      if (!liffReady || !lineProfile) {
+        setMessage("กรุณารอให้ระบบเชื่อมต่อ LINE ให้สำเร็จก่อน", true);
+        return;
+      }
+
+      if (!acceptPrivacy.checked) {
         alert("กรุณายอมรับ Privacy Notice ก่อนลงทะเบียน");
         return;
       }
 
-      const submitBtn = document.getElementById("submitBtn");
-      const message = document.getElementById("message");
-
       submitBtn.disabled = true;
-      message.innerText = "กำลังลงทะเบียน...";
+      setMessage("กำลังลงทะเบียน...");
 
       const payload = {
         lineUserId: lineProfile.userId,
         lineDisplayName: lineProfile.displayName,
-        pictureUrl: lineProfile.pictureUrl,
-        fullName: document.getElementById("fullName").value,
-        company: document.getElementById("company").value,
-        shipto: document.getElementById("shipto").value,
-        phone: document.getElementById("phone").value,
-        email: document.getElementById("email").value,
+        pictureUrl: lineProfile.pictureUrl || "",
+
+        fullName: document.getElementById("fullName").value.trim(),
+        company: document.getElementById("company").value.trim(),
+        shipto: document.getElementById("shipto").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        email: document.getElementById("email").value.trim(),
         region: document.getElementById("region").value,
+
         privacyAccepted: true,
         privacyAcceptedAt: new Date().toISOString(),
         idToken: liff.getIDToken(),
@@ -260,23 +401,30 @@
         });
 
         if (!res.ok) {
-          throw new Error("API Error");
+          throw new Error("API Error: " + res.status);
         }
 
-        message.innerText = "ลงทะเบียนสำเร็จ";
+        setMessage("ลงทะเบียนสำเร็จ");
 
-        await liff.sendMessages([
-          {
-            type: "text",
-            text: "ลงทะเบียน NGR Billing Bot สำเร็จ"
-          }
-        ]);
+        // ส่งข้อความกลับเข้าแชท เฉพาะกรณี LIFF มีสิทธิ์ chat_message.write
+        try {
+          await liff.sendMessages([
+            {
+              type: "text",
+              text: "ลงทะเบียน NGR Billing Bot สำเร็จ"
+            }
+          ]);
+        } catch (sendError) {
+          console.log("sendMessages skipped:", sendError);
+        }
 
-        liff.closeWindow();
+        if (liff.isInClient()) {
+          liff.closeWindow();
+        }
 
       } catch (error) {
-        message.innerText = "เกิดข้อผิดพลาด กรุณาลองใหม่";
-        submitBtn.disabled = false;
+        setMessage("เกิดข้อผิดพลาด กรุณาลองใหม่", true);
+        updateSubmitState();
       }
     });
 
