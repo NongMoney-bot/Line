@@ -121,7 +121,7 @@
       font-size: 15px;
     }
 
-    input {
+    input, select {
       width: 100%;
       padding: 15px 16px;
       border: 1px solid var(--nmoney-border);
@@ -136,7 +136,7 @@
       color: #8b95a1;
     }
 
-    input:focus {
+    input:focus, select:focus {
       outline: none;
       border-color: var(--nmoney-green);
       box-shadow: 0 0 0 4px rgba(6, 199, 85, 0.13);
@@ -151,7 +151,7 @@
       font-weight: 600;
     }
 
-    input.invalid {
+    input.invalid, select.invalid {
       border-color: #dc2626;
       box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.10);
     }
@@ -199,7 +199,7 @@
       line-height: 1.55;
     }
 
-    .checkbox-row input {
+    .checkbox-row input, select {
       width: auto;
       transform: scale(1.15);
       margin-top: 4px;
@@ -318,6 +318,15 @@
       <label for="email">อีเมล</label>
       <input id="email" type="email" required placeholder="กรุณาระบุ Email ที่ติดต่อกับ PTTNGR" autocomplete="email" />
       <div id="emailError" class="field-error"></div>
+
+      <label for="subscriptionPlan">Subscription Plan</label>
+      <select id="subscriptionPlan" required>
+        <option value="">-- เลือก Subscription Plan --</option>
+        <option value="Basic">Basic</option>
+        <option value="Pro">Pro</option>
+        <option value="Ultimate">Ultimate</option>
+      </select>
+      <div id="subscriptionPlanError" class="field-error"></div>
 
       <div class="privacy-box">
         <strong>ประกาศความเป็นส่วนตัว (Privacy Notice)</strong><br>
@@ -450,7 +459,7 @@
     }
 
     function clearFieldErrors() {
-      ["fullName", "company", "shipto", "phone", "email"].forEach(function (id) {
+      ["fullName", "company", "shipto", "phone", "email", "subscriptionPlan"].forEach(function (id) {
         setFieldError(id, "");
       });
     }
@@ -463,6 +472,7 @@
       const shipto = getValue("shipto");
       const phone = getValue("phone");
       const email = getValue("email");
+      const subscriptionPlan = getValue("subscriptionPlan");
 
       let firstInvalidId = "";
 
@@ -497,6 +507,10 @@
         markInvalid("email", "กรุณาระบุรูปแบบอีเมลให้ถูกต้อง เช่น name@example.com");
       }
 
+      if (!subscriptionPlan) {
+        markInvalid("subscriptionPlan", "กรุณาเลือก Subscription Plan");
+      }
+
       if (firstInvalidId) {
         document.getElementById(firstInvalidId).focus();
         setMessage("กรุณาตรวจสอบข้อมูลที่กรอก", true);
@@ -504,7 +518,7 @@
       }
 
       setMessage("");
-      return { fullName, company, shipto, phone, email };
+      return { fullName, company, shipto, phone, email, subscriptionPlan };
     }
 
     async function initLiff() {
@@ -563,6 +577,7 @@
         shipto: formValues.shipto,
         phone: formValues.phone,
         email: formValues.email,
+        subscriptionPlan: formValues.subscriptionPlan,
         privacyAccepted: true,
         privacyAcceptedAt: new Date().toISOString(),
         idToken: liff.getIDToken(),
@@ -606,7 +621,7 @@
       }
     });
 
-    ["fullName", "company", "shipto", "phone", "email"].forEach(function (id) {
+    ["fullName", "company", "shipto", "phone", "email", "subscriptionPlan"].forEach(function (id) {
       const field = document.getElementById(id);
       if (!field) return;
 
